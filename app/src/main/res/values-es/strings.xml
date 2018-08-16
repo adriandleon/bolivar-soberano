@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Bolívar Soberano</string>
+    <string name="input_hint">0,00</string>
+    <string name="strong_hint">Bs.F 0,00</string>
+    <string name="sovereigns_hint">Bs.S 0,00</string>
+    <string name="strong_symbol">Bs.F</string>
+    <string name="sovereigns_symbol">Bs.S</string>
+    <string name="label_exchange">%1$s => %2$s</string>
+    <string name="logo_jap_description">Jap System logo</string>
+    <string name="logo_sovereigns_description">Bolívares soberanos logo</string>
+    <string name="logo_strong_description">Bolívares fuertes logo</string>
+    <string name="strong_name_singular">Bolívar Fuerte</string>
+    <string name="strong_name_plural">Bolívares Fuertes</string>
+    <string name="sovereign_name_singular">Bolívar Soberano</string>
+    <string name="sovereign_name_plural">Bolívares Soberanos</string>
+</resources>
