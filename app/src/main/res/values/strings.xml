@@ -13,9 +13,10 @@
     <string name="strong_name_plural">Bolívares Fuertes</string>
     <string name="sovereign_name_singular">Bolívar Soberano</string>
     <string name="sovereign_name_plural">Bolívares Soberanos</string>
+    <string name="help_info_button">Help &amp; Info</string>
 
     <!-- AdMob App ID -->
-    <string name="admob_id">ca-app-pub-3940256099942544/6300978111</string>
-    <string name="admob_id_production">ca-app-pub-4077602219869584~4563003067</string>
+    <!--<string name="admob_id" translatable="false">ca-app-pub-3940256099942544/6300978111</string>-->
+    <string name="admob_id">ca-app-pub-4077602219869584~4563003067</string>
 
 </resources>

@@ -14,4 +14,5 @@
     <string name="strong_name_plural">Bolívares Fuertes</string>
     <string name="sovereign_name_singular">Bolívar Soberano</string>
     <string name="sovereign_name_plural">Bolívares Soberanos</string>
+    <string name="help_info_button">Ayuda e Información</string>
 </resources>

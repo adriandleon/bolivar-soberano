@@ -1,35 +1,27 @@
 {
   "project_info": {
-    "project_number": "727037837959",
-    "firebase_url": "https://bolivar-soberano-2018.firebaseio.com",
-    "project_id": "bolivar-soberano-2018",
-    "storage_bucket": "bolivar-soberano-2018.appspot.com"
+    "project_number": "867684730422",
+    "firebase_url": "https://bolivar-soberano.firebaseio.com",
+    "project_id": "bolivar-soberano",
+    "storage_bucket": "bolivar-soberano.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:727037837959:android:29ddcdc56cf15856",
+        "mobilesdk_app_id": "1:867684730422:android:29ddcdc56cf15856",
         "android_client_info": {
           "package_name": "com.japsystem.bolivarsoberano"
         }
       },
       "oauth_client": [
         {
-          "client_id": "727037837959-t5j6m4iigqd16lt90r6d0qpv0doi4670.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.japsystem.bolivarsoberano",
-            "certificate_hash": "4ca49ad9494d2d4eabf9989195bb61e32840909b"
-          }
-        },
-        {
-          "client_id": "727037837959-r2d2lsg7hr2dlobi31lb7jikqskgmrvb.apps.googleusercontent.com",
+          "client_id": "867684730422-jldpi38k9vagq6fsussksn3o7ec5e0vb.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDpnK21cVrGTYwsof2n7vzr1OsJzBUFO8Y"
+          "current_key": "AIzaSyD2ggZ5vBRp6EBspcZq2zkzOOLrNNlrcWE"
         }
       ],
       "services": {
@@ -37,13 +29,8 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 2,
-          "other_platform_oauth_client": [
-            {
-              "client_id": "727037837959-r2d2lsg7hr2dlobi31lb7jikqskgmrvb.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "status": 1,
+          "other_platform_oauth_client": []
         },
         "ads_service": {
           "status": 2

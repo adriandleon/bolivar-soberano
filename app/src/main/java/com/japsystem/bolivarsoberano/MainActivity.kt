@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.TypedValue
+import android.view.View
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.MobileAds
@@ -14,8 +16,8 @@ import java.math.RoundingMode
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var mAdView : AdView
-    var strongToSovereigns : Boolean = true
+    private lateinit var mAdView : AdView
+    private var strongToSovereigns : Boolean = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +32,7 @@ class MainActivity : AppCompatActivity() {
 
             strongToSovereigns = checked
             inputText.text.clear()
+            resultText.text = ""
 
             if (strongToSovereigns) {
                 resultAmount.text = getString(R.string.sovereigns_hint)
@@ -42,10 +45,31 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        root_layout.viewTreeObserver.addOnGlobalLayoutListener {
+            val heightDiff = root_layout.rootView.height - root_layout.height
+
+            if (heightDiff > dpToPx(200.0F)) { // if more than 200 dp, it's probably a keyboard...
+                // Soft keyboard shows
+                logo_jap.visibility = View.GONE
+            } else {
+                // Soft keyboard hides
+                logo_jap.visibility = View.VISIBLE
+            }
+        }
+
+        help_info_button.setOnClickListener {
+            AboutDialog(this).show()
+        }
+
         // AdMob
         mAdView = findViewById(R.id.adView)
         val adRequest = AdRequest.Builder().build()
         mAdView.loadAd(adRequest)
+    }
+
+    private fun dpToPx(valueInDp: Float): Float {
+        val metrics = resources.displayMetrics
+        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, valueInDp, metrics)
     }
 
     private val mTextWatcher = object : TextWatcher {
@@ -59,7 +83,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         override fun afterTextChanged(s: Editable) {
-            val decimal: Double
+            val decimal: BigDecimal
 
             if (!s.isEmpty()) {
                 decimal = if (strongToSovereigns) {
@@ -73,15 +97,15 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun toSovereigns(strong: Double) : Double {
-        return strong / 100000
+    private fun toSovereigns(strong: Double) : BigDecimal {
+        return BigDecimal(strong / 100000)
     }
 
-    private fun toStrong(sovereigns: Double) : Double {
-        return sovereigns * 100000
+    private fun toStrong(sovereigns: Double) : BigDecimal {
+        return BigDecimal(sovereigns * 100000)
     }
 
-    private fun printResult(result: Double) {
+    private fun printResult(result: BigDecimal) {
 
         if (strongToSovereigns) {
             resultAmount.text = FormatCurrency.formatToCurrency(result, getString(R.string.sovereigns_symbol) + " ")
@@ -90,7 +114,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         val decimals = 2
-        val value = BigDecimal(result).setScale(decimals, RoundingMode.HALF_EVEN)
+        val value = result.setScale(decimals, RoundingMode.HALF_EVEN)
         val integerValue = value.abs().toBigInteger()
         val decimalValue = value.subtract(BigDecimal(integerValue)).multiply(BigDecimal(10).pow(decimals)).toBigInteger()
 
@@ -113,18 +137,18 @@ class MainActivity : AppCompatActivity() {
 
             if (decimalPart != "") {
                 textResult = if (decimalPart == "un") {
-                    "Son: ${decimalPart.trim()} céntimo de $currencyNameSingular."
+                    "${decimalPart.trim()} céntimo de $currencyNameSingular."
                 } else {
-                    "Son: ${decimalPart.trim()} céntimos de $currencyNameSingular."
+                    "${decimalPart.trim()} céntimos de $currencyNameSingular."
                 }
             }
 
         } else {
 
             textResult = if (integerPart == "un") {
-                "Son: ${integerPart.trim()} $currencyNameSingular"
+                "${integerPart.trim()} $currencyNameSingular"
             } else {
-                "Son: ${integerPart.trim()} $currencyNamePlural"
+                "${integerPart.trim()} $currencyNamePlural"
             }
 
             textResult += if (decimalPart != "") {
@@ -138,6 +162,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        resultText.text = textResult
+        resultText.text = textResult.capitalize()
     }
 }
