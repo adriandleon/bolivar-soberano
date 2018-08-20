@@ -88,9 +88,9 @@ class MainActivity : AppCompatActivity() {
 
             if (!s.isEmpty()) {
                 decimal = if (strongToSovereigns) {
-                    toSovereigns(inputText.currencyDouble)
+                    FormatCurrency().toSovereigns(inputText.currencyDouble)
                 } else {
-                    toStrong(inputText.currencyDouble)
+                    FormatCurrency().toStrong(inputText.currencyDouble)
                 }
 
                 printResult(decimal)
@@ -98,20 +98,12 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun toSovereigns(strong: Double) : BigDecimal {
-        return BigDecimal(strong / 100000)
-    }
-
-    private fun toStrong(sovereigns: Double) : BigDecimal {
-        return BigDecimal(sovereigns * 100000)
-    }
-
     private fun printResult(result: BigDecimal) {
 
         if (strongToSovereigns) {
-            resultAmount.text = FormatCurrency.formatToCurrency(result, getString(R.string.sovereigns_symbol) + " ")
+            resultAmount.text = FormatCurrency().formatToCurrency(result, getString(R.string.sovereigns_symbol) + " ")
         } else {
-            resultAmount.text = FormatCurrency.formatToCurrency(result, getString(R.string.strong_symbol) + " ")
+            resultAmount.text = FormatCurrency().formatToCurrency(result, getString(R.string.strong_symbol) + " ")
         }
 
         val decimals = 2
@@ -163,6 +155,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        resultText.text = textResult.capitalize()
+        resultText.text = textResult.capitalize().replace("  ", " ")
     }
 }

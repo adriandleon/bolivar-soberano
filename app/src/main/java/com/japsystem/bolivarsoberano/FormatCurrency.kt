@@ -1,22 +1,29 @@
-package com.japsystem.bolivarsoberano;
+package com.japsystem.bolivarsoberano
 
-import java.math.BigDecimal;
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
-import java.text.NumberFormat;
-import java.util.Locale;
+import java.math.BigDecimal
+import java.text.DecimalFormat
+import java.text.NumberFormat
+import java.util.*
 
-public class FormatCurrency {
+class FormatCurrency {
 
-    static String formatToCurrency(BigDecimal number, String currencySymbol) {
+    internal fun formatToCurrency(number: BigDecimal, currencySymbol: String?): String {
 
-        DecimalFormat formatter = (DecimalFormat) NumberFormat.getCurrencyInstance(new Locale("es", "VE"));
-        DecimalFormatSymbols symbols = formatter.getDecimalFormatSymbols();
-        symbols.setCurrencySymbol(currencySymbol != null ? currencySymbol : "");
-        symbols.setMonetaryDecimalSeparator(',');
-        formatter.setDecimalFormatSymbols(symbols);
+        val formatter = NumberFormat.getCurrencyInstance(Locale("es", "VE")) as DecimalFormat
+        val symbols = formatter.decimalFormatSymbols
+        symbols.currencySymbol = currencySymbol ?: ""
+        symbols.monetaryDecimalSeparator = ','
+        formatter.decimalFormatSymbols = symbols
 
-        return formatter.format(number);
+        return formatter.format(number).replace("  ", " ")
+    }
+
+    internal fun toSovereigns(strong: Double) : BigDecimal {
+        return BigDecimal(strong / 100_000)
+    }
+
+    internal fun toStrong(sovereigns: Double) : BigDecimal {
+        return BigDecimal(sovereigns * 100_000)
     }
 
 //    private static final String[] unitsMapEnglish = { "zero", "one", "two", "three", "four", "five","six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen" };
