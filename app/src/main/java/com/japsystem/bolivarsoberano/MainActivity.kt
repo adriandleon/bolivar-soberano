@@ -23,7 +23,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        MobileAds.initialize(this, getString(R.string.admob_id))
+//        MobileAds.initialize(this, "ca-app-pub-3221550046636898~5903342189") // Production ID
+        MobileAds.initialize(this, "ca-app-pub-3940256099942544~3347511713") // Testing ID
 
         inputText.addTextChangedListener(mTextWatcher)
         labelTextView.text = getString(R.string.label_exchange,
