@@ -1,6 +1,7 @@
 package com.japsystem.bolivarsoberano
 
 import android.os.Bundle
+import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.text.Editable
 import android.text.TextWatcher
@@ -14,6 +15,11 @@ import java.math.BigDecimal
 import java.math.RoundingMode
 
 
+/**
+ * Created by: Adrian De León
+ * Date: 21 Aug 2018
+ * email: adriandleon@gmail.com
+ */
 class MainActivity : AppCompatActivity() {
 
     private lateinit var mAdView : AdView
@@ -59,7 +65,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         help_info_button.setOnClickListener {
-            AboutDialog(this).show()
+            showAboutDialog()
         }
 
         // AdMob
@@ -111,8 +117,8 @@ class MainActivity : AppCompatActivity() {
         val integerValue = value.abs().toBigInteger()
         val decimalValue = value.subtract(BigDecimal(integerValue)).multiply(BigDecimal(10).pow(decimals)).toBigInteger()
 
-        val integerPart = ConvertToText.convertirLetras(integerValue.toInt())
-        val decimalPart = ConvertToText.convertirLetras(decimalValue.toInt())
+        val integerPart = FormatCurrency().formatToText(integerValue.toLong())
+        val decimalPart = FormatCurrency().formatToText(decimalValue.toLong())
 
         var textResult = ""
         val currencyNamePlural = if (strongToSovereigns) {
@@ -129,7 +135,7 @@ class MainActivity : AppCompatActivity() {
         if (integerPart == "") {
 
             if (decimalPart != "") {
-                textResult = if (decimalPart == "un") {
+                textResult = if (decimalPart.trim() == "un") {
                     "${decimalPart.trim()} céntimo de $currencyNameSingular."
                 } else {
                     "${decimalPart.trim()} céntimos de $currencyNameSingular."
@@ -138,7 +144,7 @@ class MainActivity : AppCompatActivity() {
 
         } else {
 
-            textResult = if (integerPart == "un") {
+            textResult = if (integerPart.trim() == "un") {
                 "${integerPart.trim()} $currencyNameSingular"
             } else {
                 "${integerPart.trim()} $currencyNamePlural"
@@ -155,6 +161,23 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        resultText.text = textResult.capitalize().replace("  ", " ")
+        resultText.text = textResult.capitalize()
+    }
+
+    private fun showAboutDialog() {
+        var message = "Version " +
+                getString(R.string.app_version_name) +
+                " (" + getString(R.string.app_version_code) + ")\n"
+        message += "©2018 - JAP System C.A." + "\n\n"
+
+        message += getString(R.string.round_info)
+
+        message += "\n\nInfo: invjapsystem@gmail.com"
+
+        AlertDialog.Builder(this).setTitle(getString(R.string.app_name))
+                .setMessage(message)
+                .setPositiveButton(getString(android.R.string.ok), null)
+                .create()
+                .show()
     }
 }

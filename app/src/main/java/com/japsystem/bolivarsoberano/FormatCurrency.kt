@@ -1,11 +1,24 @@
 package com.japsystem.bolivarsoberano
 
+import java.lang.Math.abs
 import java.math.BigDecimal
 import java.text.DecimalFormat
 import java.text.NumberFormat
 import java.util.*
 
+/**
+ * Created by: Adrian De León
+ * Date: 21 Aug 2018
+ * email: adriandleon@gmail.com
+ */
 class FormatCurrency {
+
+    private val unitsMap = arrayOf(
+            "", "un", "dos", "tres", "cuatro", "cinco", "seis", "siete", "ocho", "nueve",
+            "diez", "once", "doce", "trece", "catorce", "quince", "dieciseis", "diecisiete", "dieciocho", "diecinueve",
+            "veinte", "veintiún", "veintidos", "veintitres", "veinticuatro", "veinticinco", "veintiséis", "veintisiete", "veintiocho", "veintinueve")
+    private val tensMap = arrayOf("", "diez", "veinte", "treinta", "cuarenta", "cincuenta", "sesenta", "setenta", "ochenta", "noventa")
+    private val centsMap = arrayOf("", "ciento", "doscientos", "trescientos", "cuatrocientos", "quinientos", "seiscientos", "setecientos", "ochocientos", "novecientos")
 
     internal fun formatToCurrency(number: BigDecimal, currencySymbol: String?): String {
 
@@ -26,54 +39,73 @@ class FormatCurrency {
         return BigDecimal(sovereigns * 100_000)
     }
 
-//    private static final String[] unitsMapEnglish = { "zero", "one", "two", "three", "four", "five","six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen" };
-//    private static final String[] tensMapEnglish = { "zero", "ten", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety" };
-//
-//    private static String formatToTextEnglish(int number) {
-//        if (number == 0)
-//            return "zero";
-//
-//        if (number < 0)
-//            return "minus " + formatToTextEnglish(abs(number));
-//
-//        String words = "";
-//
-//        if ((number / 1000000000) > 0)
-//        {
-//            words += formatToTextEnglish(number / 1000000000) + " billion ";
-//            number %= 1000000000;
-//        }
-//
-//        if ((number / 1000000) > 0)
-//        {
-//            words += formatToTextEnglish(number / 1000000) + " million ";
-//            number %= 1000000;
-//        }
-//
-//        if ((number / 1000) > 0)
-//        {
-//            words += formatToTextEnglish(number / 1000) + " thousand ";
-//            number %= 1000;
-//        }
-//
-//        if ((number / 100) > 0)
-//        {
-//            words += formatToTextEnglish(number / 100) + " hundred ";
-//            number %= 100;
-//        }
-//
-//        if (number > 0)
-//        {
-//            if (number < 20)
-//                words += unitsMapEnglish[number];
-//            else
-//            {
-//                words += tensMapEnglish[number / 10];
-//                if ((number % 10) > 0)
-//                    words += "-" + unitsMapEnglish[number % 10];
-//            }
-//        }
-//
-//        return words;
-//    }
+    private fun convertNumberToText(inputNumber: Long): String {
+
+        var number = inputNumber
+
+        if (number == 0L)
+            return ""
+
+        if (number < 0)
+            return "menos " + formatToText(abs(number))
+
+        var words = ""
+
+        if (number / 1_000_000_000_000_000_000L > 0) {
+            words += formatToText(number / 1_000_000_000_000_000_000L)
+            words += if (number / 1_000_000_000_000_000_000L == 1L) " trillón " else " trillones "
+            number %= 1_000_000_000_000_000_000L
+        }
+
+        if (number / 1_000_000_000_000L > 0) {
+            words += formatToText(number / 1_000_000_000_000L)
+            words += if (number / 1_000_000_000_000L == 1L) " billón " else " billones "
+            number %= 1_000_000_000_000L
+        }
+
+        if (number / 1000000 > 0) {
+            words += formatToText(number / 1000000)
+            words += if (number / 1000000 == 1L) " millón " else if (number % 1000000 != 0L) " millones " else " millones de "
+            number %= 1000000
+        }
+
+        if (number / 1000 > 0) {
+
+            words += if (number / 1000 == 1L) {
+                "mil "
+            } else {
+                formatToText(number / 1000) + " mil "
+            }
+
+            number %= 1000
+        }
+
+        if (number < 1000) {
+
+            words += if (number == 100L) {
+                "cien "
+            } else {
+                centsMap[number.toInt() / 100] + " "
+            }
+
+            number %= 100
+        }
+
+        if (number < 100) {
+            if (number < 30)
+                words += unitsMap[number.toInt()]
+            else {
+                words += tensMap[number.toInt() / 10]
+                if (number % 10 > 0)
+                    words += " y " + unitsMap[number.toInt() % 10]
+            }
+        }
+
+        return words
+    }
+
+    internal fun formatToText(inputNumber: Long): String {
+        return convertNumberToText(inputNumber).trim()
+                .replace("   ", " ").replace("  ", " ")
+    }
 }

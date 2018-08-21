@@ -15,4 +15,5 @@
     <string name="sovereign_name_singular">Bolívar Soberano</string>
     <string name="sovereign_name_plural">Bolívares Soberanos</string>
     <string name="help_info_button">Ayuda e Información</string>
+    <string name="round_info">El redondeo de las cifras decimales se calcula de acuerdo a lo establecido en la Resolución N° 18–07–02 emitida por el Banco Central de Venezuela.</string>
 </resources>
