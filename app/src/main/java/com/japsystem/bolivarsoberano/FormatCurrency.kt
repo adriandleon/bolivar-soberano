@@ -53,34 +53,76 @@ class FormatCurrency {
 
         if (number / 1_000_000_000_000_000_000L > 0) {
             words += formatToText(number / 1_000_000_000_000_000_000L)
-            words += if (number / 1_000_000_000_000_000_000L == 1L) " trillón " else " trillones "
+
+            words += if (number / 1_000_000_000_000_000_000L == 1L) {
+                if (number % 1_000_000_000_000_000_000L != 0L) {
+                    " trillón "
+                } else {
+                    " trillón de "
+                }
+            } else {
+                if (number % 1_000_000_000_000_000_000L != 0L) {
+                    " trillones "
+                } else {
+                    " trillones de "
+                }
+            }
+
             number %= 1_000_000_000_000_000_000L
         }
 
         if (number / 1_000_000_000_000L > 0) {
             words += formatToText(number / 1_000_000_000_000L)
-            words += if (number / 1_000_000_000_000L == 1L) " billón " else " billones "
+
+            words += if (number / 1_000_000_000_000L == 1L) {
+                if (number % 1_000_000_000_000L != 0L) {
+                    " billón "
+                } else {
+                    " billón de "
+                }
+            } else {
+                if (number % 1_000_000_000_000L != 0L) {
+                    " billones "
+                } else {
+                    " billones de "
+                }
+            }
+
             number %= 1_000_000_000_000L
         }
 
-        if (number / 1000000 > 0) {
-            words += formatToText(number / 1000000)
-            words += if (number / 1000000 == 1L) " millón " else if (number % 1000000 != 0L) " millones " else " millones de "
-            number %= 1000000
-        }
+        if (number / 1_000_000 > 0) {
+            words += formatToText(number / 1_000_000)
 
-        if (number / 1000 > 0) {
-
-            words += if (number / 1000 == 1L) {
-                "mil "
+            words += if (number / 1_000_000 == 1L) {
+                if (number % 1_000_000 != 0L) {
+                    " millón "
+                } else {
+                    " millón de "
+                }
             } else {
-                formatToText(number / 1000) + " mil "
+                if (number % 1_000_000 != 0L) {
+                    " millones "
+                } else {
+                    " millones de "
+                }
             }
 
-            number %= 1000
+            number %= 1_000_000
         }
 
-        if (number < 1000) {
+        if (number / 1_000 > 0) {
+
+            words += if (number / 1_000 == 1L) {
+                "mil "
+            } else {
+                formatToText(number / 1_000) + " mil "
+            }
+
+            number %= 1_000
+        }
+
+        if (number < 1_000) {
 
             words += if (number == 100L) {
                 "cien "

@@ -36,23 +36,36 @@ class FormatCurrencyTest {
     @Test
     fun toSovereignsTest() {
 
-        assertEquals(obj.formatToCurrency(obj.toSovereigns(65_498.651), sovereignsSymbol), "Bs.S 0,65")
-        assertEquals(obj.formatToCurrency(obj.toSovereigns(3_300_000.00), sovereignsSymbol), "Bs.S 33,00")
-        assertEquals(obj.formatToCurrency(obj.toSovereigns(.0), sovereignsSymbol), "Bs.S 0,00")
-        assertEquals(obj.formatToCurrency(obj.toSovereigns(67_517_265.61), sovereignsSymbol), "Bs.S 675,17")
-        assertEquals(obj.formatToCurrency(obj.toSovereigns(14_888_888.0), sovereignsSymbol), "Bs.S 148,89")
         assertEquals(obj.formatToCurrency(obj.toSovereigns(-15_000.0), sovereignsSymbol), "Bs.S -0,15")
+        assertEquals(obj.formatToCurrency(obj.toSovereigns(.0), sovereignsSymbol), "Bs.S 0,00")
+        assertEquals(obj.formatToCurrency(obj.toSovereigns(.56), sovereignsSymbol), "Bs.S 0,00")
+        assertEquals(obj.formatToCurrency(obj.toSovereigns(8.74), sovereignsSymbol), "Bs.S 0,00")
+        assertEquals(obj.formatToCurrency(obj.toSovereigns(76.50), sovereignsSymbol), "Bs.S 0,00")
+        assertEquals(obj.formatToCurrency(obj.toSovereigns(876.77), sovereignsSymbol), "Bs.S 0,01")
+        assertEquals(obj.formatToCurrency(obj.toSovereigns(7_541.06), sovereignsSymbol), "Bs.S 0,08")
+        assertEquals(obj.formatToCurrency(obj.toSovereigns(65_498.65), sovereignsSymbol), "Bs.S 0,65")
+        assertEquals(obj.formatToCurrency(obj.toSovereigns(134_718.32), sovereignsSymbol), "Bs.S 1,35")
+        assertEquals(obj.formatToCurrency(obj.toSovereigns(3_300_000.00), sovereignsSymbol), "Bs.S 33,00")
+        assertEquals(obj.formatToCurrency(obj.toSovereigns(67_517_265.61), sovereignsSymbol), "Bs.S 675,17")
+        assertEquals(obj.formatToCurrency(obj.toSovereigns(614_888_888.00), sovereignsSymbol), "Bs.S 6.148,89")
+        assertEquals(obj.formatToCurrency(obj.toSovereigns(9_540_058_000.21), sovereignsSymbol), "Bs.S 95.400,58")
     }
 
     @Test
     fun toStrongTest() {
 
-        assertEquals(obj.formatToCurrency(obj.toStrong(6_598.15), strongSymbol), "Bs.F 659.815.000,00")
-        assertEquals(obj.formatToCurrency(obj.toStrong(3_300_000.00), strongSymbol), "Bs.F 330.000.000.000,00")
+        assertEquals(obj.formatToCurrency(obj.toStrong(-7.77), strongSymbol), "Bs.F -777.000,00")
         assertEquals(obj.formatToCurrency(obj.toStrong(.0), strongSymbol), "Bs.F 0,00")
+        assertEquals(obj.formatToCurrency(obj.toStrong(.04), strongSymbol), "Bs.F 4.000,00")
+        assertEquals(obj.formatToCurrency(obj.toStrong(.19), strongSymbol), "Bs.F 19.000,00")
+        assertEquals(obj.formatToCurrency(obj.toStrong(8.42), strongSymbol), "Bs.F 842.000,00")
+        assertEquals(obj.formatToCurrency(obj.toStrong(33.44), strongSymbol), "Bs.F 3.344.000,00")
         assertEquals(obj.formatToCurrency(obj.toStrong(629.0), strongSymbol), "Bs.F 62.900.000,00")
         assertEquals(obj.formatToCurrency(obj.toStrong(148.89), strongSymbol), "Bs.F 14.889.000,00")
-        assertEquals(obj.formatToCurrency(obj.toStrong(-7.77), strongSymbol), "Bs.F -777.000,00")
+        assertEquals(obj.formatToCurrency(obj.toStrong(6_598.15), strongSymbol), "Bs.F 659.815.000,00")
+        assertEquals(obj.formatToCurrency(obj.toStrong(92_012.36), strongSymbol), "Bs.F 9.201.236.000,00")
+        assertEquals(obj.formatToCurrency(obj.toStrong(600_010.99), strongSymbol), "Bs.F 60.001.099.000,00")
+        assertEquals(obj.formatToCurrency(obj.toStrong(3_300_000.00), strongSymbol), "Bs.F 330.000.000.000,00")
     }
 
     @Test
@@ -80,5 +93,20 @@ class FormatCurrencyTest {
         assertEquals(obj.formatToText(29_112_000_774_856_456L), "veintinueve mil ciento doce billones setecientos setenta y cuatro millones ochocientos cincuenta y seis mil cuatrocientos cincuenta y seis")
         assertEquals(obj.formatToText(391_000_733_554_999_000L), "trescientos noventa y un mil billones setecientos treinta y tres mil quinientos cincuenta y cuatro millones novecientos noventa y nueve mil")
         assertEquals(obj.formatToText(5_782_010_720_011_349_813L), "cinco trillones setecientos ochenta y dos mil diez billones setecientos veinte mil once millones trescientos cuarenta y nueve mil ochocientos trece")
+
+        assertEquals(obj.formatToText(1_000_000L), "un millón de")
+        assertEquals(obj.formatToText(1_800_454L), "un millón ochocientos mil cuatrocientos cincuenta y cuatro")
+        assertEquals(obj.formatToText(6_000_000L), "seis millones de")
+        assertEquals(obj.formatToText(6_800_454L), "seis millones ochocientos mil cuatrocientos cincuenta y cuatro")
+
+        assertEquals(obj.formatToText(1_000_000_000_000L), "un billón de")
+        assertEquals(obj.formatToText(1_548_300_000_000L), "un billón quinientos cuarenta y ocho mil trescientos millones de")
+        assertEquals(obj.formatToText(7_000_000_000_000L), "siete billones de")
+        assertEquals(obj.formatToText(7_930_000_000_000L), "siete billones novecientos treinta mil millones de")
+
+        assertEquals(obj.formatToText(1_000_000_000_000_000_000L), "un trillón de")
+        assertEquals(obj.formatToText(1_000_078_000_000_000_000L), "un trillón setenta y ocho billones de")
+        assertEquals(obj.formatToText(8_000_000_000_000_000_000L), "ocho trillones de")
+        assertEquals(obj.formatToText(8_930_000_000_001_000_000L), "ocho trillones novecientos treinta mil billones un millón de")
     }
 }
