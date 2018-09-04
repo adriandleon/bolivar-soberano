@@ -1,18 +1,23 @@
 package com.japsystem.bolivarsoberano
 
+import android.os.Build
 import android.os.Bundle
+import android.speech.tts.TextToSpeech
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.util.TypedValue
 import android.view.View
+import android.widget.Toast
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.MobileAds
 import kotlinx.android.synthetic.main.activity_main.*
 import java.math.BigDecimal
 import java.math.RoundingMode
+import java.util.*
 
 
 /**
@@ -24,13 +29,14 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var mAdView : AdView
     private var strongToSovereigns : Boolean = true
+    private var textToSpeech : TextToSpeech? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-//        MobileAds.initialize(this, "ca-app-pub-3221550046636898~5903342189") // Production ID
-        MobileAds.initialize(this, "ca-app-pub-3940256099942544~3347511713") // Testing ID
+        MobileAds.initialize(this, "ca-app-pub-3221550046636898~5903342189") // Production ID
+//        MobileAds.initialize(this, "ca-app-pub-3940256099942544~3347511713") // Testing ID
 
         inputText.addTextChangedListener(mTextWatcher)
         labelTextView.text = getString(R.string.label_exchange,
@@ -40,6 +46,7 @@ class MainActivity : AppCompatActivity() {
             strongToSovereigns = checked
             inputText.text.clear()
             resultText.text = ""
+            textToSpeechButton.visibility = View.INVISIBLE
 
             if (strongToSovereigns) {
                 resultAmount.text = getString(R.string.sovereigns_hint)
@@ -51,6 +58,24 @@ class MainActivity : AppCompatActivity() {
                         getString(R.string.sovereign_name_plural), getString(R.string.strong_name_plural))
             }
         }
+
+        textToSpeech = TextToSpeech(applicationContext, TextToSpeech.OnInitListener { status ->
+            if (status == TextToSpeech.SUCCESS) {
+                val ttsLang = textToSpeech?.setLanguage(Locale("spa", "USA"))
+
+                if (ttsLang == TextToSpeech.LANG_MISSING_DATA || ttsLang == TextToSpeech.LANG_NOT_SUPPORTED) {
+                    Log.e("TTS", "The Language is not supported!")
+                } else {
+                    Log.i("TTS", "Language Supported.")
+                }
+                Log.i("TTS", "Initialization success.")
+            } else {
+                Toast.makeText(applicationContext, "TTS Initialization failed!", Toast.LENGTH_SHORT).show()
+            }
+        })
+
+        textToSpeechButton.setOnClickListener { textToSpeech() }
+        resultText.setOnClickListener { textToSpeech() }
 
         root_layout.viewTreeObserver.addOnGlobalLayoutListener {
             val heightDiff = root_layout.rootView.height - root_layout.height
@@ -92,7 +117,7 @@ class MainActivity : AppCompatActivity() {
         override fun afterTextChanged(s: Editable) {
             val decimal: BigDecimal
 
-            if (!s.isEmpty()) {
+            if (s.isNotEmpty() && s.isNotBlank()) {
                 decimal = if (strongToSovereigns) {
                     FormatCurrency().toSovereigns(inputText.currencyDouble)
                 } else {
@@ -161,7 +186,25 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        textToSpeechButton.visibility = if (textResult.isNotEmpty()) View.VISIBLE else View.INVISIBLE
         resultText.text = textResult.capitalize()
+    }
+
+    private fun textToSpeech() {
+        if (resultText.text.isEmpty()) return
+
+        val data = resultText.text.toString()
+
+        val speechStatus = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            textToSpeech?.speak(data, TextToSpeech.QUEUE_FLUSH, null, "44")
+        } else {
+            @Suppress("DEPRECATION")
+            textToSpeech?.speak(data, TextToSpeech.QUEUE_FLUSH, null)
+        }
+
+        if (speechStatus == TextToSpeech.ERROR) {
+            Log.e("TTS", "Error in converting Text to Speech!")
+        }
     }
 
     private fun showAboutDialog() {
@@ -179,5 +222,14 @@ class MainActivity : AppCompatActivity() {
                 .setPositiveButton(getString(android.R.string.ok), null)
                 .create()
                 .show()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        if (textToSpeech != null) {
+            textToSpeech?.stop()
+            textToSpeech?.shutdown()
+        }
     }
 }

@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Bolívar Soberano</string>
     <string name="input_hint">0,00</string>
     <string name="strong_hint">Bs.F 0,00</string>
@@ -14,5 +14,8 @@
     <string name="sovereign_name_singular">Bolívar Soberano</string>
     <string name="sovereign_name_plural">Bolívares Soberanos</string>
     <string name="help_info_button">Help &amp; Info</string>
-    <string name="round_info">El redondeo de las cifras decimales se calcula de acuerdo a lo establecido en la Resolución N° 18–07–02 emitida por el Banco Central de Venezuela.</string>
+    <string name="round_info" tools:ignore="TypographyDashes">
+        El redondeo de las cifras decimales se calcula de acuerdo a lo establecido en la Resolución N° 18-07-02 emitida por el Banco Central de Venezuela.
+    </string>
+    <string name="textToSpeech">Presione para escuchar el monto.</string>
 </resources>

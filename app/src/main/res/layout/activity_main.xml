@@ -39,6 +39,8 @@
         android:gravity="end"
         android:text="@string/sovereigns_hint"
         android:textSize="@dimen/input_text_size"
+        android:maxLines="1"
+        android:lines="1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/inputText" />
@@ -91,24 +93,39 @@
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/jap_logo" />
 
+    <ImageButton
+        android:id="@+id/textToSpeechButton"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:background="@android:color/transparent"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_volume_up_black_24dp"
+        android:tint="@color/colorAccent"
+        android:visibility="invisible"
+        app:layout_constraintTop_toTopOf="@+id/resultText"
+        app:layout_constraintStart_toStartOf="parent"
+        android:contentDescription="@string/textToSpeech" />
+
     <TextView
         android:id="@+id/resultText"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginLeft="16dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginRight="16dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
-        android:gravity="top|center_horizontal"
+        android:gravity="top|start"
         android:textAppearance="@style/TextAppearance.AppCompat"
         android:textColor="@android:color/darker_gray"
         android:textSize="@dimen/result_text_size"
         app:fontFamily="@font/raleway_regular"
         app:layout_constraintBottom_toTopOf="@+id/logo_jap"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@id/textToSpeechButton"
         app:layout_constraintTop_toBottomOf="@+id/resultAmount"
         tools:text="Son: dos mil quinientos cincuenta y ocho bolívares soveranos con dieciocho céntimos." />
 
@@ -137,28 +154,28 @@
         app:srcCompat="@drawable/strong_logo" />
 
     <!-- Production Ads -->
-    <!--<com.google.android.gms.ads.AdView-->
-        <!--android:visibility="visible"-->
-        <!--android:id="@+id/adView"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--app:adSize="SMART_BANNER"-->
-        <!--app:adUnitId="ca-app-pub-3221550046636898/8761848930"-->
-        <!--app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--app:layout_constraintEnd_toEndOf="parent"-->
-        <!--app:layout_constraintStart_toStartOf="parent" />-->
-
-    <!-- Testing Ads -->
     <com.google.android.gms.ads.AdView
         android:visibility="visible"
         android:id="@+id/adView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:adSize="SMART_BANNER"
-        app:adUnitId="ca-app-pub-3940256099942544/6300978111"
+        app:adUnitId="ca-app-pub-3221550046636898/8761848930"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <!-- Testing Ads -->
+    <!--<com.google.android.gms.ads.AdView-->
+        <!--android:visibility="invisible"-->
+        <!--android:id="@+id/adView"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--app:adSize="SMART_BANNER"-->
+        <!--app:adUnitId="ca-app-pub-3940256099942544/6300978111"-->
+        <!--app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintStart_toStartOf="parent" />-->
 
     <ImageView
         android:id="@+id/help_info_button"
