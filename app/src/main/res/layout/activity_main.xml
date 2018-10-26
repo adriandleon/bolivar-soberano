@@ -154,28 +154,28 @@
         app:srcCompat="@drawable/strong_logo" />
 
     <!-- Production Ads -->
-    <com.google.android.gms.ads.AdView
-        android:visibility="visible"
-        android:id="@+id/adView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:adSize="SMART_BANNER"
-        app:adUnitId="ca-app-pub-3221550046636898/8761848930"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <!-- Testing Ads -->
     <!--<com.google.android.gms.ads.AdView-->
-        <!--android:visibility="invisible"-->
+        <!--android:visibility="visible"-->
         <!--android:id="@+id/adView"-->
         <!--android:layout_width="match_parent"-->
         <!--android:layout_height="wrap_content"-->
         <!--app:adSize="SMART_BANNER"-->
-        <!--app:adUnitId="ca-app-pub-3940256099942544/6300978111"-->
+        <!--app:adUnitId="ca-app-pub-3221550046636898/8761848930"-->
         <!--app:layout_constraintBottom_toBottomOf="parent"-->
         <!--app:layout_constraintEnd_toEndOf="parent"-->
         <!--app:layout_constraintStart_toStartOf="parent" />-->
+
+    <!-- Testing Ads -->
+    <com.google.android.gms.ads.AdView
+        android:visibility="invisible"
+        android:id="@+id/adView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:adSize="SMART_BANNER"
+        app:adUnitId="ca-app-pub-3940256099942544/6300978111"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
         android:id="@+id/help_info_button"
