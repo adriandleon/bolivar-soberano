@@ -15,9 +15,9 @@ The Monetary Reconversion becomes effective as of August 20, 2018 with a new mon
 ![Screenshot 2](screenshots/screen2.png)
 ![Screenshot 3](screenshots/screen3.png)
 
-<br>
+
 Features
--------------
+--------
 
 * Convert from bolivares fuertes to sovereign bolivars and from sovereign bolivars to bolivares fuertes. 
 * Shows the result expressed in numbers and in text.
